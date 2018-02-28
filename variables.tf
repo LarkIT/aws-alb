@@ -63,3 +63,18 @@ variable "external_domain_name" {
 variable "route53_external_id" {
   description = "DNS external name id"
 }
+
+variable "health_check_conf" {
+  description = "Parameters to configure health checks for the load balancer target group"
+  type = "map"
+
+  default = {
+    interval = "30"
+    path = "/"
+    port = "traffic-port"
+    timeout = "5"
+    healthy_threshold= "3"
+    unhealthy_threshold = "3"
+    matcher = "200"
+  }
+}

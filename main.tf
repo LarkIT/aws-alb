@@ -23,6 +23,17 @@ resource "aws_alb_target_group" "app-http" {
   vpc_id   = "${var.vpc_id}"
   port     = 80
   protocol = "HTTP"
+
+  health_check {
+    interval = "${var.health_check_conf["interval"]}"
+    path = "${var.health_check_conf["path"]}"
+    port =  "${var.health_check_conf["port"]}"
+    protocol = "HTTP"
+    timeout = "${var.health_check_conf["timeout"]}"
+    healthy_threshold =  "${var.health_check_conf["healthy_threshold"]}"
+    unhealthy_threshold =  "${var.health_check_conf["unhealthy_threshold"]}"
+    matcher =  "${var.health_check_conf["matcher"]}"
+  }
 }
 
 resource "aws_alb_target_group" "app-https" {
@@ -30,6 +41,17 @@ resource "aws_alb_target_group" "app-https" {
   vpc_id   = "${var.vpc_id}"
   port     = 443
   protocol = "HTTPS"
+
+  health_check {
+    interval = "${var.health_check_conf["interval"]}"
+    path = "${var.health_check_conf["path"]}"
+    port =  "${var.health_check_conf["port"]}"
+    protocol = "HTTPS"
+    timeout = "${var.health_check_conf["timeout"]}"
+    healthy_threshold = "${var.health_check_conf["healthy_threshold"]}"
+    unhealthy_threshold = "${var.health_check_conf["unhealthy_threshold"]}"
+    matcher =  "${var.health_check_conf["matcher"]}"
+  } 
 }
 
 # Listeners
